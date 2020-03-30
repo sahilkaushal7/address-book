@@ -15,7 +15,7 @@ import AddressMenuItem from "./AddressMenuItem";
 
 export default {
   name: "AddressMenu",
-  props: ["addresses"],
+  props: ["addresses", "activeAddress"],
   components: {
     AddressMenuItem
   }

@@ -1,20 +1,27 @@
 <template>
-  <div>
-    <AddressMenu v-bind:addresses="addresses" v-on:change-menuitem="changeMenuItem" />
+  <div class="address-book">
+    <AddressMenu
+      v-bind:addresses="addresses"
+      v-on:change-menuitem="changeMenuItem"
+      v-bind:activeAddress="activeAddress"
+    />
+    <Profile v-bind:activeAddress="activeAddress" />
   </div>
 </template>
 
 <script>
 import AddressMenu from "./components/AddressMenu";
+import Profile from "./components/Profile";
 
 export default {
   name: "App",
   components: {
-    AddressMenu
+    AddressMenu,
+    Profile
   },
   data() {
     return {
-      activeAddress: 0,
+      activeAddress: {},
       addresses: [
         {
           name: "Hadassah",
@@ -182,14 +189,15 @@ export default {
           dob: "11/13/85"
         }
       ]
-    }
+    };
   },
   methods: {
     changeMenuItem(id) {
-      this.activeAddress = id
+      const address = this.addresses.find(address => address.id === id);
+      this.activeAddress = address;
     }
   }
-}
+};
 </script>
 
 <style>
@@ -203,5 +211,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
   background-color: #ebebec;
+}
+
+.address-book {
+  display: flex;
+  flex-direction: row;
 }
 </style>
