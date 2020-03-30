@@ -1,20 +1,24 @@
 <template>
   <div class="address-menu">
     <h3>Address Book</h3>
-    <div v-bind:key="address.id" v-for="address in addresses" class="address-menu__item">
-      <img class="address-menu__item-img" v-bind:src="address.image" />
-      <div>
-        <b>{{address.name}}</b>
-        <h6>{{address.status}}</h6>
-      </div>
+    <div v-bind:key="address.id" v-for="address in addresses">
+      <AddressMenuItem
+        v-bind:address="address"
+        v-on:change-menuitem="$emit('change-menuitem', address.id)"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import AddressMenuItem from "./AddressMenuItem";
+
 export default {
   name: "AddressMenu",
-  props: ["addresses"]
+  props: ["addresses"],
+  components: {
+    AddressMenuItem
+  }
 };
 </script>
 
@@ -24,17 +28,17 @@ export default {
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #ebebec; 
-  border-radius: 10px;
+  box-shadow: inset 0 0 5px #ebebec;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #659bc3; 
+  background: #659bc3;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #006ebf; 
+  background: #006ebf;
 }
 
 .address-menu {
@@ -48,28 +52,6 @@ export default {
 .address-menu h3 {
   text-align: center;
   padding: 10px;
-}
-
-.address-menu__item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px;
-  border-top: 1px solid #ebebec;
-  word-break: break-all;
-}
-
-.address-menu__item:hover {
-  background: #ebebec;
-  color: #252529;
-  cursor: pointer;
-}
-
-.address-menu__item-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  margin-right: 10px;
 }
 </style>
 
