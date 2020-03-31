@@ -1,5 +1,5 @@
 <template>
-  <b-card title="Add a new address" class="m-5 px-2">
+  <b-card title="Add a new address" class="mx-5 px-2">
     <b-form @submit.prevent="$emit('submit-address', form)">
       <b-form-group id="input-group-1" label="Name:" label-for="input-1">
         <b-form-input 

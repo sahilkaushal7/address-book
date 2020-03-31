@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row no-gutters>
+    <b-row no-gutters align-v="center">
       <b-col md="4">
         <AddressMenu
           v-bind:addresses="addresses"

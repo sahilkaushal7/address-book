@@ -1,5 +1,5 @@
 <template>
-  <b-card class="m-5 px-2">
+  <b-card class="mx-5 px-2">
     <b-row no-gutters>
       <b-col cols="12" sm="4">
         <b-img
