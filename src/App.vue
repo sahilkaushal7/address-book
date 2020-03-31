@@ -1,27 +1,39 @@
 <template>
-  <div class="address-book">
-    <AddressMenu
-      v-bind:addresses="addresses"
-      v-on:change-menuitem="changeMenuItem"
-      v-bind:activeAddress="activeAddress"
-    />
-    <Profile v-bind:activeAddress="activeAddress" />
+  <div>
+    <b-row no-gutters>
+      <b-col md="4">
+        <AddressMenu
+          v-bind:addresses="addresses"
+          v-on:change-menuitem="changeMenuItem"
+          v-on:add-address="addAddress"
+          v-bind:activeAddress="activeAddress"
+        />
+      </b-col>
+      <b-col md="8">
+        <Profile v-if="Boolean(activeAddress)" v-bind:activeAddress="activeAddress" />
+        <AddAddress v-else v-on:submit-address="submitAddress" />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 <script>
 import AddressMenu from "./components/AddressMenu";
 import Profile from "./components/Profile";
+import AddAddress from "./components/AddAddress";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
 export default {
   name: "App",
   components: {
     AddressMenu,
-    Profile
+    Profile,
+    AddAddress
   },
   data() {
     return {
-      activeAddress: {},
+      activeAddress: null,
       addresses: [
         {
           name: "Hadassah",
@@ -195,6 +207,22 @@ export default {
     changeMenuItem(id) {
       const address = this.addresses.find(address => address.id === id);
       this.activeAddress = address;
+    },
+    addAddress() {
+      this.activeAddress = null;
+    },
+    submitAddress(form) {
+      const newAddress = Object.assign(
+        {},
+        {
+          id: this.addresses.length + 1,
+          image:
+            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+          status: "Available"
+        },
+        form
+      );
+      this.addresses.unshift(newAddress);
     }
   }
 };
@@ -211,10 +239,5 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
   background-color: #ebebec;
-}
-
-.address-book {
-  display: flex;
-  flex-direction: row;
 }
 </style>

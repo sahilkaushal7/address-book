@@ -1,6 +1,17 @@
 <template>
   <div class="address-menu">
-    <h3>Address Book</h3>
+    <b-row align-v="center" no-gutters>
+      <b-col cols="10">
+        <h3>Address Book</h3>
+      </b-col>
+      <b-col cols="2">
+        <b-icon-person-plus
+          @click="$emit('add-address')"
+          font-scale="2"
+          class="border rounded p-2"
+        />
+      </b-col>
+    </b-row>
     <div v-bind:key="address.id" v-for="address in addresses">
       <AddressMenuItem
         v-bind:address="address"
@@ -43,7 +54,6 @@ export default {
 
 .address-menu {
   background-color: #252529;
-  width: 20%;
   height: 100vh;
   overflow-y: scroll;
   color: #f6fafd;
@@ -52,6 +62,12 @@ export default {
 .address-menu h3 {
   text-align: center;
   padding: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .address-menu {
+    height: 200px;
+  }
 }
 </style>
 
